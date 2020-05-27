@@ -15,3 +15,6 @@ jobs:
           name: "echo an env var that is part of our project"
           command: |
             echo ${MY_ENV_VAR} # this env var must be swt within the project
+      - run: # print the name of the branch we're on
+          name: "What branch am I on?"
+          command: echo ${CIRCLE_BRANCH}
