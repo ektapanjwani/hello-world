@@ -1,17 +1,20 @@
 workflows:
   version: 2
-  build-test-and-approval-deploy:
+  commit:
     jobs:
       - build
-      - hold: # <<< A job that will require manual approval in the CircleCI web application.
-          type: approval # <<< This key-value pair will set your workflow to a status of "On Hold"
-          requires: # We only run the "hold" job when test2 has succeeded
-           - build
-      # On approval of the `hold` job, any successive job that requires the `hold` job will run. 
-      # In this case, a user is manually triggering the deploy job.
-      - deploy:
-          requires:
-            - hold
+      - hold
+  nightly:
+    triggers:
+      - schedule:
+          cron: "45 16 2 6 2"
+          filters:
+            branches:
+              only:
+                - circleci-project-setup
+                
+    jobs:
+      - deploy
             
             
 jobs:
