@@ -3,7 +3,10 @@ workflows:
   commit:
     jobs:
       - build
-      - hold
+      - hold:
+          requires:
+            - build
+        
   nightly:
     triggers:
       - schedule:
